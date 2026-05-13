@@ -59,24 +59,24 @@ export function SignupForm() {
           className="mt-12 rounded-3xl border border-border bg-card/80 backdrop-blur-xl p-8 md:p-10 ring-soft"
         >
           <div className="grid md:grid-cols-2 gap-5">
-            <Field label="Nome completo" error={errors.name?.message}>
-              <input {...register("name")} className={inputCls} placeholder="Como aparece no documento" />
+            <Field label="Nome completo" htmlFor="name" error={errors.name?.message}>
+              <input id="name" {...register("name")} className={inputCls} placeholder="Como aparece no documento" />
             </Field>
-            <Field label="E-mail" error={errors.email?.message}>
-              <input type="email" {...register("email")} className={inputCls} placeholder="voce@email.com" />
+            <Field label="E-mail" htmlFor="email" error={errors.email?.message}>
+              <input id="email" type="email" {...register("email")} className={inputCls} placeholder="voce@email.com" />
             </Field>
-            <Field label="WhatsApp" error={errors.whatsapp?.message}>
-              <input {...register("whatsapp")} className={inputCls} placeholder="(11) 99999-9999" />
+            <Field label="WhatsApp" htmlFor="whatsapp" error={errors.whatsapp?.message}>
+              <input id="whatsapp" {...register("whatsapp")} className={inputCls} placeholder="(11) 99999-9999" />
             </Field>
-            <Field label="Instagram" error={errors.instagram?.message}>
-              <input {...register("instagram")} className={inputCls} placeholder="@seuusuario" />
+            <Field label="Instagram" htmlFor="instagram" error={errors.instagram?.message}>
+              <input id="instagram" {...register("instagram")} className={inputCls} placeholder="@seuusuario" />
             </Field>
-            <Field label="Cidade" error={errors.city?.message}>
-              <input {...register("city")} className={inputCls} placeholder="São Paulo, SP" />
+            <Field label="Cidade" htmlFor="city" error={errors.city?.message}>
+              <input id="city" {...register("city")} className={inputCls} placeholder="São Paulo, SP" />
             </Field>
 
-            <Field label="Tipo de fotógrafo" error={errors.type?.message}>
-              <select {...register("type")} className={inputCls} defaultValue="">
+            <Field label="Tipo de fotógrafo" htmlFor="type" error={errors.type?.message}>
+              <select id="type" {...register("type")} className={inputCls} defaultValue="">
                 <option value="" disabled>Selecione</option>
                 <option>Esportivo</option>
                 <option>Eventos sociais / formaturas</option>
@@ -87,8 +87,8 @@ export function SignupForm() {
               </select>
             </Field>
 
-            <Field label="Já possui eventos?" error={errors.hasEvents?.message}>
-              <select {...register("hasEvents")} className={inputCls} defaultValue="">
+            <Field label="Já possui eventos?" htmlFor="hasEvents" error={errors.hasEvents?.message}>
+              <select id="hasEvents" {...register("hasEvents")} className={inputCls} defaultValue="">
                 <option value="" disabled>Selecione</option>
                 <option>Sim, com fluxo recorrente</option>
                 <option>Sim, eventualmente</option>
@@ -96,8 +96,8 @@ export function SignupForm() {
               </select>
             </Field>
 
-            <Field label="Quantos eventos por mês?" error={errors.monthly?.message}>
-              <select {...register("monthly")} className={inputCls} defaultValue="">
+            <Field label="Quantos eventos por mês?" htmlFor="monthly" error={errors.monthly?.message}>
+              <select id="monthly" {...register("monthly")} className={inputCls} defaultValue="">
                 <option value="" disabled>Selecione</option>
                 <option>1 a 3</option>
                 <option>4 a 8</option>
@@ -106,8 +106,8 @@ export function SignupForm() {
               </select>
             </Field>
 
-            <Field label="Evento que pode indicar agora" error={errors.eventName?.message}>
-              <input {...register("eventName")} className={inputCls} placeholder="Nome ou descrição do evento" />
+            <Field label="Evento que pode indicar agora" htmlFor="eventName" error={errors.eventName?.message}>
+              <input id="eventName" {...register("eventName")} className={inputCls} placeholder="Nome ou descrição do evento" />
             </Field>
           </div>
 
@@ -133,18 +133,20 @@ export function SignupForm() {
 
 function Field({
   label,
+  htmlFor,
   error,
   children,
 }: {
   label: string;
+  htmlFor?: string;
   error?: string;
   children: React.ReactNode;
 }) {
   return (
-    <label className="block">
-      <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">{label}</span>
+    <div className="block">
+      <label htmlFor={htmlFor} className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground block">{label}</label>
       <div className="mt-2">{children}</div>
       {error && <span className="mt-1.5 block text-xs text-destructive">{error}</span>}
-    </label>
+    </div>
   );
 }
