@@ -30,19 +30,38 @@ export function SignupForm() {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: FormData) => {
+    console.log("SUBMIT START");
     try {
-      const payload = { ...data, source: "Landing Page PicJoy" };
-      await fetch("https://orbitalflow.com.br/api/public/intake/82551844369f4aa6ad912c5b684ba871", {
+      // Ajuste de payload para garantir chaves padrão (name, email, phone)
+      const payload = { 
+        ...data, 
+        phone: data.whatsapp, // Mapeando whatsapp para phone
+        source: "Landing Page PicJoy" 
+      };
+      
+      console.log("PAYLOAD", payload);
+
+      const response = await fetch("https://orbitalflow.com.br/api/public/intake/82551844369f4aa6ad912c5b684ba871", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload)
       });
-      console.log("submission", data);
+      
+      console.log("RESPONSE STATUS", response.status);
+      
+      const responseBody = await response.text();
+      console.log("RESPONSE BODY", responseBody);
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
       toast.success("Inscrição enviada!", {
         description: "Em até 48h um curador da PicJoy entra em contato.",
       });
       reset();
     } catch (error) {
+      console.error("Erro na submissão", error);
       toast.error("Erro ao enviar inscrição", {
         description: "Por favor, tente novamente mais tarde.",
       });
