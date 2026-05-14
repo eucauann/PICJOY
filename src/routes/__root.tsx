@@ -106,26 +106,6 @@ function RootShell({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         {children}
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `(function(){
-  var ENDPOINT = "https://orbitalflow.com.br/api/public/intake/82551844369f4aa6ad912c5b684ba871";
-  document.addEventListener("submit", function(e){
-    var f = e.target;
-    if(!f.matches("form[data-orbital]")) return;
-    e.preventDefault();
-    var fd = new FormData(f), payload = {};
-    fd.forEach(function(v,k){ payload[k]=v; });
-    payload.source = payload.source || "Landing Page";
-    fetch(ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)})
-      .then(function(r){ return r.json(); })
-      .then(function(){ f.reset(); f.dispatchEvent(new CustomEvent("orbital:success")); })
-      .catch(function(){ f.dispatchEvent(new CustomEvent("orbital:error")); });
-  });
-  fetch(ENDPOINT.replace("/intake/","/intake/")+"?ping=1",{mode:"no-cors"}).catch(function(){});
-})();`,
-          }}
-        />
         <Scripts />
       </body>
     </html>

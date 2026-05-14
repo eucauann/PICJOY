@@ -30,12 +30,23 @@ export function SignupForm() {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = async (data: FormData) => {
-    await new Promise((r) => setTimeout(r, 800));
-    console.log("submission", data);
-    toast.success("Inscrição enviada!", {
-      description: "Em até 48h um curador da PicJoy entra em contato.",
-    });
-    reset();
+    try {
+      const payload = { ...data, source: "Landing Page PicJoy" };
+      await fetch("https://orbitalflow.com.br/api/public/intake/82551844369f4aa6ad912c5b684ba871", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      console.log("submission", data);
+      toast.success("Inscrição enviada!", {
+        description: "Em até 48h um curador da PicJoy entra em contato.",
+      });
+      reset();
+    } catch (error) {
+      toast.error("Erro ao enviar inscrição", {
+        description: "Por favor, tente novamente mais tarde.",
+      });
+    }
   };
 
   return (
