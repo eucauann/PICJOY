@@ -19,7 +19,7 @@ const schema = z.object({
 type FormData = z.infer<typeof schema>;
 
 const inputCls =
-  "w-full h-12 rounded-xl bg-background/60 border border-border px-4 text-sm placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition";
+  "w-full h-12 rounded-xl bg-background border border-border px-4 text-sm placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/30 transition";
 
 export function SignupForm() {
   const {
@@ -56,7 +56,7 @@ export function SignupForm() {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="mt-12 rounded-3xl border border-border bg-card/80 backdrop-blur-xl p-8 md:p-10 ring-soft"
+          className="mt-12 rounded-3xl border border-border bg-card/95 p-8 md:p-10 ring-soft shadow-xl"
         >
           <div className="grid md:grid-cols-2 gap-5">
             <Field label="Nome completo" htmlFor="name" error={errors.name?.message}>
